@@ -1,32 +1,52 @@
-#include "3-calc.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include "function_pointers.h"
 
 /**
- * main - ...
- * @argc: ...
- * @argv: ...
+ * print_name_as_is - prints a name as is
+ * @name: name of the person
  *
- * Return: ...
+ * Return: Nothing.
  */
-int main(int argc, char *argv[])
+void print_name_as_is(char *name)
 {
-	int (*oprt)(int, int);
+    printf("Hello, my name is %s\n", name);
+}
 
-	if (argc != 4)
-	{
-		printf("Error\n");
-		exit(98);
-	}
+/**
+ * print_name_uppercase - print a name in uppercase
+ * @name: name of the person
+ *
+ * Return: Nothing.
+ */
+void print_name_uppercase(char *name)
+{
+    unsigned int i;
 
-	oprt = get_op_func(argv[2]);
+    printf("Hello, my uppercase name is ");
+    i = 0;
+    while (name[i])
+    {
+        if (name[i] >= 'a' && name[i] <= 'z')
+        {
+            putchar(name[i] + 'A' - 'a');
+        }
+        else
+        {
+            putchar(name[i]);
+        }
+        i++;
+    }
+}
 
-	if (!oprt)
-	{
-		printf("Error\n");
-		exit(99);
-	}
-
-	printf("%d\n", oprt(atoi(argv[1]), atoi(argv[3])));
-	return (0);
+/**
+ * main - check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    print_name("Bob", print_name_as_is);
+    print_name("Bob Dylan", print_name_uppercase);
+    printf("\n");
+    return (0);
 }
