@@ -1,139 +1,28 @@
 #include "3-calc.h"
 #include <stdlib.h>
-#include <stdio.h>
-
-
 /**
-* op_add - ...
-* @a: ...
-* @b: ...
-*
-* Return: ...
-*/
-int op_add(int a, int b)
+ * get_op_func - Selects the correct function to perform
+ *               the operation asked by the user.
+ * @s: The operator passed as argument.
+ *
+ * Return: A pointer to the function corresponding
+ *         to the operator given as a parameter.
+ */
+int (*get_op_func(char *s))(int, int)
 {
-   return (a + b);
-}
+	op_t ops[] = {
+		{"+", op_add},
+		{"-", op_sub},
+		{"*", op_mul},
+		{"/", op_div},
+		{"%", op_mod},
+		{NULL, NULL},
+	};
 
+	int i = 0;
 
-/**
-* op_sub - ...
-* @a: ...
-* @b: ...
-*
-* Return: ...
-*/
-int op_sub(int a, int b)
-{
-   return (a - b);
-}
+	while (ops[i].op != NULL && *(ops[i].op) != *s)
+		i++;
 
-
-/**
-* op_mul - ...
-* @a: ...
-* @b: ...
-*
-* Return: ...
-*/
-int op_mul(int a, int b)
-{
-   return (a * b);
-}
-
-
-/**
-* op_div - ...
-* @a: ...
-* @b: ...
-*
-* Return: ...
-*/
-int op_div(int a, int b)
-{
-   if (b == 0)
-   {
-       printf("Error\n");
-       exit(100);
-   }
-
-
-   return (a / b);
-}
-
-
-/**
-* op_mod - ...
-* @a: ...
-* @b: ...
-*
-* Return: ...
-*/
-int op_mod(int a, int b)
-{
-   if (b == 0)
-   {
-       printf("Error\n");
-       exit(100);
-   }
-
-
-   return (a % b);
-}
-
-
-/*100-main_opcodes.c*/
-
-
-#include <stdlib.h>
-#include <stdio.h>
-
-
-/**
-* print_opcodes - print the opcodes of this program
-* @a: address of the main function
-* @n: number of bytes to print
-*
-* Return: void
-*/
-void print_opcodes(char *a, int n)
-{
-   int i;
-
-
-   for (i = 0; i < n; i++)
-   {
-       printf("%.2hhx", a[i]);
-       if (i < n - 1)
-           printf(" ");
-   }
-   printf("\n");
-}
-
-
-/**
-* main - prints the opcodes of its own main function
-* @argc: number of arguments passed to the function
-* @argv: array of pointers to arguments
-*
-* Return: always O
-*/
-int main(int argc, char **argv)
-{
-   int n;
-
-
-   if (argc != 2)
-   {
-       printf("Error\n");
-       exit(1);
-   }
-   n = atoi(argv[1]);
-   if (n < 0)
-   {
-       printf("Error\n");
-       exit(2);
-   }
-   print_opcodes((char *)&main, n);
-   return (0);
+	return (ops[i].f);
 }
