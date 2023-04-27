@@ -6,16 +6,16 @@
  * Return: Integer.
  **/
 
-size_t list_len(const list_t *M)
+size_t list_len(const list_t *h)
 {
 	const list_t *temp;
 	unsigned int counter = 0;
 
-	hell = M;
-	while (hell)
+	temp = h;
+	while (temp)
 	{
 		counter++;
-		hell = hell->next;
+		temp = temp->next;
 	}
 	return (counter);
 }
