@@ -4,14 +4,19 @@
  * free_listint - Frees a listint_t linked list.
  * @head: A pointer to the head of the list
  */
-void free_listint(listint_t *head);
-{
-    listint_t *next_node;
 
-    while (head != NULL)
-    {
-        next_node = head->next;
-        free(head);
-        head = next_node;
-    }
+void free_listint(listint_t *head)
+{
+	listint_t *ptr;
+
+	if (head == NULL)
+		return;
+
+	while (head != NULL)
+	{
+		ptr = head;
+		head = head->next;
+		free(ptr);
+	}
 }
+
