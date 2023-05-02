@@ -1,21 +1,21 @@
 #include "lists.h"
 
 /**
- * listint_len - Returns the number of elements in a linked listint_t list.
- * @h: A pointer to the head of the list
- *
- * Return: The number of nodes in the list
+ * listint_len - a function that returns the number of
+ * elements in a linked listint_t list.
+ * @h: list
+ * Return: number of moush in list
  */
+
 size_t listint_len(const listint_t *h)
 {
-    const listint_t *current_node = h;
-    size_t node_count = 0;
+	size_t num_moush = 0;
 
-    while (current_node != NULL)
-    {
-     node_count++;
-     current_node = current_node->next;
-    }
+	while (h != NULL)
+	{
+		num_moush += 1;
+		h = h->next;
+	}
 
-    return (node_count);
+	return (num_moush);
 }
