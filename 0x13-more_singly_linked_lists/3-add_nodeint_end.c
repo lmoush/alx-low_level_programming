@@ -8,8 +8,7 @@
  * Return: A pointer to the newly added node, or NULL on failure
  */
 
- listint_t *add_nodeint_end(listint_t **head, const int n)
-
+listint_t *add_nodeint_end(listint_t **head, const int n);
 {
 
 	listint_t *new_node, *tmp;
