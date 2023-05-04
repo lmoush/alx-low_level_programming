@@ -7,14 +7,14 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	int joker;
-	unsigned int moush_jokers;
+	int bit;
+	unsigned int moush_bits;
 
-	moush_joker = (sizeof(unsigned long int) * 8);
-	if (index > moush_joker)
+	moush_bits = (sizeof(unsigned long int) * 8);
+	if (index > moush_bits)
 		return (-1);
 
-	joker = ((n >> index) & 1);
+	bit = ((n >> index) & 1);
 
-	return (joker);
+	return (bit);
 }
