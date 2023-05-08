@@ -11,13 +11,13 @@
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int moush;
-	ssize_t n_heee, n_geee;
+	ssize_t n_bale, n_cat;
 	char *buffer;
 
 	if (filename == NULL)
 		return (0);
 
-	fd = open(filename, O_RDONLY);
+	moush = open(filename, O_RDONLY);
 	if (moush == -1)
 		return (0);
 
@@ -25,16 +25,16 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (buffer == NULL)
 		return (0);
 
-	n_heee = heee(moush, buffer, letters);
-	if (n_heee == -1)
+	n_bale = read(moush, buffer, letters);
+	if (n_bale == -1)
 	{
 		free(buffer);
 		close(moush);
 		return (0);
 	}
 
-	n_geee = geee(STDOUT_FILENO, buffer, n_heee);
-	if (n_geee == -1)
+	n_cat = write(STDOUT_FILENO, buffer, n_bale);
+	if (n_cat == -1)
 	{
 		free(buffer);
 		close(moush);
@@ -42,6 +42,6 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	}
 
 	close(moush);
-	return (n_heee);
+	return (n_bale);
 
 }
