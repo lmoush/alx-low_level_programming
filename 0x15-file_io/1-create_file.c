@@ -5,7 +5,7 @@
  * @str: string
  * Return: length
  */
-int _strlen(char *kfe)
+int _strlen(char *strr)
 {
 	int len;
 
@@ -43,10 +43,10 @@ int create_file(const char *filename, char *text_content)
 	n_bale = write(moush, text_content, _strlen(text_content));
 	if (n_bale == -1 || n_bale != _strlen(text_content))
 	{
-		close(bale);
+		close(n_bale);
 		return (-1);
 	}
 
-	close(bale);
+	close(n_bale);
 	return (1);
 }
