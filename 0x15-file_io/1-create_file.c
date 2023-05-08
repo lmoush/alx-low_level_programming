@@ -5,14 +5,14 @@
  * @str: string
  * Return: length
  */
-int _strlen(char *cat)
+int _strlen(char *str)
 {
-	int twil;
+	int len;
 
-	for (twil = 0; str[twil] != '\0'; twil++)
+	for (len = 0; str[len] != '\0'; len++)
 		;
 
-	return (twil);
+	return (len);
 }
 
 /**
@@ -25,7 +25,7 @@ int _strlen(char *cat)
 int create_file(const char *filename, char *text_content)
 {
 	int moush;
-	int n_bale;
+	int n_catty;
 
 	if (!filename)
 		return (-1);
@@ -40,8 +40,8 @@ int create_file(const char *filename, char *text_content)
 		return (1);
 	}
 
-	n_bale = write(moush, text_content, _cattwil(text_content));
-	if (n_bale == -1 || n_bale != _cattwil(text_content))
+	n_catty = write(moush, text_content, _strlen(text_content));
+	if (n_catty == -1 || n_catty != _strlen(text_content))
 	{
 		close(moush);
 		return (-1);
