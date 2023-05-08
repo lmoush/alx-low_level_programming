@@ -5,14 +5,14 @@
  * @str: string
  * Return: length
  */
-int _strlen(char *dfg)
+int _strlen(char *kfe)
 {
-	int twil;
+	int len;
 
-	for (twil = 0; str[twil] != '\0'; twil++)
+	for (len = 0; str[len] != '\0'; len++)
 		;
 
-	return (twil);
+	return (len);
 }
 
 /**
