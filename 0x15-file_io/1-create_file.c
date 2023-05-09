@@ -25,7 +25,7 @@ int _strlen(char *str)
 int create_file(const char *filename, char *text_content)
 {
 	int moush;
-	int n_catty;
+	int n_wrote;
 
 	if (!filename)
 		return (-1);
@@ -40,8 +40,8 @@ int create_file(const char *filename, char *text_content)
 		return (1);
 	}
 
-	n_catty = write(moush, text_content, _strlen(text_content));
-	if (n_catty == -1 || n_catty != _strlen(text_content))
+	n_wrote = write(moush, text_content, _strlen(text_content));
+	if (n_wrote == -1 || n_wrote != _strlen(text_content))
 	{
 		close(moush);
 		return (-1);
