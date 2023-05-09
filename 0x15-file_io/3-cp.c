@@ -7,7 +7,7 @@
  * @fd: file descriptor
  * Return: 0 on success
  **/
-int __exit(int error, char *s, int moush)
+int __exit(int error, char *s, int fd)
 {
 	switch (error)
 	{
@@ -31,36 +31,36 @@ int __exit(int error, char *s, int moush)
 /**
  * main - a program that copies the content of a file to another file.
  * @argc: should be 3 (./a.out copyfromfile copytofile)
- * @argv: first is file to copy from (moush_1), second is file to copy to (moush_2)
+ * @argv: first is file to copy from (fd_1), second is file to copy to (fd_2)
  * Return: 0 (success), 97-100 (exit value errors)
  */
 int main(int argc, char *argv[])
 {
-	int moush_1, moush_2, n_read, n_wrote;
+	int fd_1, fd_2, n_read, n_wrote;
 	char *buffer[1024];
 
 	if (argc != 3)
 		__exit(97, NULL, 0);
 
-	moush_2 = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
-	if (moush_2 == -1)
+	fd_2 = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
+	if (fd_2 == -1)
 		__exit(99, argv[2], 0);
 
-	moush_1 = open(argv[1], O_RDONLY);
-	if (moush_1 == -1)
+	fd_1 = open(argv[1], O_RDONLY);
+	if (fd_1 == -1)
 		__exit(98, argv[1], 0);
 
-	while ((n_read = read(moush_1, buffer, 1024)) != 0)
+	while ((n_read = read(fd_1, buffer, 1024)) != 0)
 	{
 		if (n_read == -1)
 			__exit(98, argv[1], 0);
 
-		n_wrote = write(moush_2, buffer, n_read);
+		n_wrote = write(fd_2, buffer, n_read);
 		if (n_wrote == -1)
 			__exit(99, argv[2], 0);
 	}
 
-	close(moush_2) == -1 ? (__exit(100, NULL, moush_2)) : close(moush_2);
-	close(moush_1) == -1 ? (__exit(100, NULL, moush_1)) : close(moush_1);
+	close(fd_2) == -1 ? (__exit(100, NULL, fd_2)) : close(fd_2);
+	close(fd_1) == -1 ? (__exit(100, NULL, fd_1)) : close(fd_1);
 	return (0);
 }
