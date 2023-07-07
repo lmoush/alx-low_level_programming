@@ -1,53 +1,48 @@
-#include "hash_tables.h"
-#include <string.h>
+#ifndef _HASH_TABLES_H_
+#define _HASH_TABLES_H_
+
+
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 /**
- * hash_table_set - A function that sets a key value pair in the hash table.
- * @ht: A pointer to hash table to set in.
- * @key: The key to set in hash table.
- * @value: The value to set as hash_node's value.
- * Return: 1 on success, or 0 on failure.
+ * struct hash_node_s - Node of a hash table
+ *
+ * @key: The key, string
+ * The key is unique in the HashTable
+ * @value: The value corresponding to a key
+ * @next: A pointer to the next node of the List
  */
-int hash_table_set(hash_table_t *ht, const char *key, const char *value)
+typedef struct hash_node_s
 {
-	unsigned long int index = 0;
-	char *value_dup = NULL, *key_dup = NULL;
-	hash_node_t *new_node = NULL, *tmp_node = NULL;
+	char *key;
+	char *value;
+	struct hash_node_s *next;
+} hash_node_t;
 
-	if (!ht || !key || !value)
-		return (0);
-	else if (strlen(key) == 0)
-		return (0);
-	value_dup = strdup(value);
-	key_dup = strdup(key);
-	new_node = malloc(sizeof(hash_node_t));
-	if (!new_node)
-		return (0);
-	new_node->key = key_dup;
-	new_node->value = value_dup;
-	new_node->next = NULL;
-	index = key_index((unsigned char *)key, ht->size);
-	if ((ht->array)[index] != NULL)
-	{
-		tmp_node = (ht->array)[index];
-		while (tmp_node)
-		{
-			if (strcmp(tmp_node->key, key_dup) == 0)
-			{
-				free(ht->array[index]->value);
-				ht->array[index]->value = value_dup;
-				free(key_dup);
-				free(new_node);
-				return (1);
-			}
-			tmp_node = tmp_node->next;
-		}
-		tmp_node = (ht->array)[index];
-		new_node->next = tmp_node;
-		(ht->array)[index] = new_node;
-	}
-	else
-		(ht->array)[index] = new_node;
-	return (1);
-}
+/**
+ * struct hash_table_s - Hash table data structure
+ *
+ * @size: The size of the array
+ * @array: An array of size @size
+ * Each cell of this array is a pointer to the first node of a linked list,
+ * because we want our HashTable to use a Chaining collision handling
+ */
+typedef struct hash_table_s
+{
+	unsigned long int size;
+	hash_node_t **array;
+} hash_table_t;
+
+hash_table_t *hash_table_create(unsigned long int size);
+unsigned long int hash_djb2(const unsigned char *str);
+unsigned long int key_index(const unsigned char *key, unsigned long int size);
+hash_node_t *create_new_node (const char *key, const char *value);
+int hash_table_set(hash_table_t *ht, const char *key, const char *value);
+char *hash_table_get(const hash_table_t *ht, const char *key);
+void hash_table_print(const hash_table_t *ht);
+void hash_table_delete(hash_table_t *ht);
+void free_hash_list(hash_node_t *head);
+
+#endiff
